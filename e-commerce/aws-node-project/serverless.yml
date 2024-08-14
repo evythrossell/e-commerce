@@ -1,0 +1,18 @@
+org: freelancer
+app: aws-node-project
+service: aws-node-project
+frameworkVersion: '3'
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+  stage: dev
+  region: us-east-2
+
+functions:
+  function1:
+    handler: index.handler
+    events:
+      - http:
+          path: /hello
+          method: get
