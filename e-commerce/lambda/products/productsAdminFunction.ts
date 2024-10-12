@@ -6,24 +6,25 @@ export async function handler(event: APIGatewayProxyEvent,
         const lambdaRequestId = context.awsRequestId
         const apiRequestId = event.requestContext.requestId
         const method = event.httpMethod
+        const resource = event.resource
 
         console.log(`API Gateway requestId: ${apiRequestId} - Lambda RequestId: ${lambdaRequestId}`)
 
-        if (event.resource === "/products") {
+        if (resource === "/products") {
             console.log("POST /products")
             return {
                 statusCode: 201,
                 body: "POST /products"
             } 
-        } else if (event.resource === "/products/{id}") {
+        } else if (resource === "/products/{id}") {
             const productId = event.pathParameters!.id as string
-            if (event.httpMethod == "PUT") {
+            if (method == "PUT") {
                 console.log(`PUT /products/${productId}`)
             return {
                 statusCode: 201,
                 body: `PUT /products/${productId}`
             } 
-            } else if (event.httpMethod === "DELETE") {
+            } else if (method === "DELETE") {
                 console.log(`DELETE /products/${productId}`)
                 return {
                     statusCode: 200,
