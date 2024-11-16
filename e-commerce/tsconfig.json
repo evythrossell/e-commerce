@@ -23,12 +23,7 @@
     "typeRoots": [
       "./node_modules/@types"
     ],
-    "baseUrl": "./",
-    "paths": {
-      "/opt/nodejs/productsLayer":[
-        "lambda/products/layers/productLayer/nodejs/productRepository"
-      ]
-    }
+    "baseUrl": "./"
   },
   "exclude": [
     "node_modules",

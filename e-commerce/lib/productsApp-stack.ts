@@ -8,13 +8,13 @@ import { Construct } from "constructs"
 
 export class ProductAppStack extends cdk.Stack {
     readonly productsFetchHandler: lambdaNodeJS.NodejsFunction
-    readonly productsDb: dynamodb.Table
+    readonly productsDdb: dynamodb.Table
     readonly productsAdminHandler: lambdaNodeJS.NodejsFunction
 
     constructor(scope: Construct, id: string, props?: cdk.StackProps) {
         super(scope, id, props)
 
-        this.productsDb = new dynamodb.Table(this, "ProductsDb", {
+        this.productsDdb = new dynamodb.Table(this, "productsDdb", {
             tableName: "products",
             removalPolicy: cdk.RemovalPolicy.DESTROY,
             partitionKey: {
@@ -41,11 +41,11 @@ export class ProductAppStack extends cdk.Stack {
                 sourceMap: false
             },
             environment: {
-                PRODUCTS_DB: this.productsDb.tableName
+                PRODUCTS_DDB: this.productsDdb.tableName
             },
             layers: [productsLayer]
         })
-        this.productsDb.grantReadData(this.productsFetchHandler)
+        this.productsDdb.grantReadData(this.productsFetchHandler)
 
         this.productsAdminHandler = new lambdaNodeJS.NodejsFunction(this,
             "ProductsAdminFunction", {
@@ -60,10 +60,10 @@ export class ProductAppStack extends cdk.Stack {
                 sourceMap: false
             },
             environment: {
-                PRODUCTS_DB: this.productsDb.tableName
+                PRODUCTS_DDB: this.productsDdb.tableName
             },
             layers: [productsLayer]
         })
-        this.productsDb.grantWriteData(this.productsAdminHandler)
+        this.productsDdb.grantWriteData(this.productsAdminHandler)
     }
 }
