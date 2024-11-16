@@ -27,7 +27,7 @@ export class ProductAppStack extends cdk.Stack {
         })
         const productsLayerArn = ssm.StringParameter.valueForStringParameter(this, "ProductsLayerVersionArn")
         const productsLayer = lambda.LayerVersion.fromLayerVersionArn(this, "ProductsLayerVersionArn", productsLayerArn)
-        
+
         this.productsFetchHandler = new lambdaNodeJS.NodejsFunction(this,
             "ProductsFetchFunction", {
             functionName: "ProductsFetchFunction",

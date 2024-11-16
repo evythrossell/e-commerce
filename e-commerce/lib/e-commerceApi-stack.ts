@@ -13,10 +13,10 @@ interface EcommerceApiStackProps extends cdk.StackProps {
 
 export class EcommerceApiStack extends cdk.Stack {
 
-    constructor(scope: Construct, id : string, props: EcommerceApiStackProps) {
+    constructor(scope: Construct, id: string, props: EcommerceApiStackProps) {
         super(scope, id, props)
 
-        const logGroup  = new cwlogs.LogGroup(this, "EcommerceApiLogs")
+        const logGroup = new cwlogs.LogGroup(this, "EcommerceApiLogs")
         const api = new apigateway.RestApi(this, "EcommerceApi", {
             restApiName: "EcommerceApi",
             cloudWatchRole: true,

@@ -13,7 +13,7 @@ export class ProductRepository {
     private ddbClient: DocumentClient
     private productsDdb: string
 
-    constructor (ddbClient: DocumentClient, productsDdb: string) {
+    constructor(ddbClient: DocumentClient, productsDdb: string) {
         this.ddbClient = ddbClient
         this.productsDdb = productsDdb
     }
@@ -38,8 +38,8 @@ export class ProductRepository {
             throw new Error('Product not found')
         }
     }
-    
-    async create(product: Product): Promise<Product>{
+
+    async create(product: Product): Promise<Product> {
         product.id = uuid()
         await this.ddbClient.put({
             TableName: this.productsDdb,
@@ -61,7 +61,7 @@ export class ProductRepository {
         } else {
             throw new Error('Product not found')
         }
-    } 
+    }
     async updateProduct(productId: string, product: Product): Promise<Product> {
         const data = await this.ddbClient.update({
             TableName: this.productsDdb,
